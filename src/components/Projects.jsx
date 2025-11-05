@@ -45,11 +45,12 @@ const ProjectCard = ({ p, i }) => (
     href={p.link}
     target="_blank"
     rel="noreferrer"
-    initial={{ opacity: 0, y: 10 }}
-    whileInView={{ opacity: 1, y: 0 }}
+    initial={{ opacity: 0, y: 20, scale: 0.98 }}
+    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+    whileHover={{ y: -6 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: i * 0.05 }}
-    className="group relative block rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:border-white/20 hover:bg-white/10"
+    transition={{ duration: 0.6, delay: i * 0.05, ease: 'easeOut' }}
+    className="group relative block overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:border-white/20 hover:bg-white/10"
   >
     <div className="flex items-start justify-between gap-4">
       <h3 className="text-lg font-medium text-white/95">{p.title}</h3>
@@ -66,6 +67,13 @@ const ProjectCard = ({ p, i }) => (
     <div className="mt-4 inline-flex items-center gap-2 text-sm text-white/80">
       <Github className="h-4 w-4" /> View on GitHub
     </div>
+    {/* Hover shine */}
+    <motion.div
+      initial={{ x: '-120%' }}
+      whileHover={{ x: '120%' }}
+      transition={{ duration: 0.8, ease: 'easeInOut' }}
+      className="pointer-events-none absolute -left-1/2 top-0 h-full w-1/3 rotate-12 bg-gradient-to-b from-white/15 to-transparent"
+    />
   </motion.a>
 );
 

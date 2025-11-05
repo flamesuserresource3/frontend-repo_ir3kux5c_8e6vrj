@@ -1,10 +1,20 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { GraduationCap, Award } from 'lucide-react';
 
 const About = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 20, mass: 0.4 });
+
   return (
-    <section className="relative w-full bg-gradient-to-b from-black to-zinc-950 py-20">
+    <section ref={ref} className="relative w-full bg-gradient-to-b from-black to-zinc-950 py-20">
+      {/* Scroll progress underline */}
+      <motion.div
+        style={{ scaleX }}
+        className="absolute left-0 top-0 h-1 origin-left bg-gradient-to-r from-violet-400/80 via-fuchsia-300/80 to-orange-300/80"
+      />
+
       <div className="mx-auto max-w-6xl px-6">
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
@@ -32,7 +42,7 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur"
+            className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur"
           >
             <div className="mb-4 flex items-center gap-3">
               <GraduationCap className="h-5 w-5 text-violet-300" />
@@ -46,6 +56,13 @@ const About = () => {
                 12th: Naveen PU College, Bidar — 89.5%
               </li>
             </ul>
+            <motion.div
+              initial={{ x: '-120%' }}
+              whileInView={{ x: '120%' }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: 'easeInOut' }}
+              className="pointer-events-none absolute -left-1/2 top-0 h-full w-1/3 rotate-6 bg-gradient-to-b from-white/20 to-transparent"
+            />
           </motion.div>
 
           <motion.div
@@ -53,7 +70,7 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur"
+            className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur"
           >
             <div className="mb-4 flex items-center gap-3">
               <Award className="h-5 w-5 text-orange-300" />
@@ -64,6 +81,13 @@ const About = () => {
               <li>Built gramMITRA in a 24-hour hackathon</li>
               <li>NVIDIA – Transformer-Based NLP (Certification)</li>
             </ul>
+            <motion.div
+              initial={{ x: '-120%' }}
+              whileInView={{ x: '120%' }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
+              className="pointer-events-none absolute -left-1/2 top-0 h-full w-1/3 -rotate-6 bg-gradient-to-b from-white/20 to-transparent"
+            />
           </motion.div>
         </div>
       </div>
